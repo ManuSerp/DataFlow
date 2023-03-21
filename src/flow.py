@@ -178,6 +178,7 @@ def print_defref_set(definition, ref, aref, adef):
     print("definition reaching for each ref ( by name) ", dicoref)
     return dicodef, dicoref
 
+
     # algo
 if __name__ == "__main__":
     cfgreader = CFGReader()
@@ -187,10 +188,10 @@ if __name__ == "__main__":
     adef, bdef = flow.pos_reaching_def(cfg)
 
     aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
-    print("test:")
+    print("\ntest:")
     print_defref_set(definition, ref, aref, adef)
 
-    print("wordcount:")
+    print("\nwordcount:")
     cfg = cfgreader.read_cfg("../tp4/part_1/wordcount.php.cfg.json")
     flow = flow_class()
     adef, bdef = flow.pos_reaching_def(cfg)
@@ -198,7 +199,7 @@ if __name__ == "__main__":
     print_defref_set(definition, ref, aref, adef)
 
     # part 2
-    print("part 2")
+    print("\npart 2")
     cfg = cfgreader.read_cfg("../tp4/part_2/file1.php.cfg.json")
     flow = flow_class()
     adef, bdef = flow.pos_reaching_def(cfg)
