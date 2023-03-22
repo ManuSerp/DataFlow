@@ -93,6 +93,7 @@ class flow_class:
                     self.IN[nodeindex] = self.IN[nodeindex].union(
                         self.OUT[parentindex])
 
+                # ici on cherche le call end pour éviter de casser la propagation des definitions
                 if self.cfg.get_type(node) == "CallEnd":
                     prev = self.cfg.get_call_begin(node)
                     previndex = prev-self.root
@@ -152,6 +153,7 @@ class flow_class:
                     childindex = child-self.root
                     self.OUT[nodeindex] = self.OUT[nodeindex].union(
                         self.IN[childindex])
+                # ici on cherche le call begin pour éviter de casser la propagation des references
                 if self.cfg.get_type(node) == "CallBegin":
                     next = self.cfg.get_call_end(node)
                     nextindex = next-self.root
@@ -167,11 +169,11 @@ class flow_class:
         return self.OUT, self.IN, self.ref, self.definition
 
 
-def print_defref_set(definition, ref, aref, adef):
+def print_defref_set(definition, ref, aref, adef, verbose=True):
     dicodef = {}
     dicoref = {}
     for i in definition:
-        add = []
+        add = [i[1]]
         for j in aref[i[2]]:
 
             for k in ref:
@@ -179,17 +181,32 @@ def print_defref_set(definition, ref, aref, adef):
                     if k[1] == i[1]:
                         add.append(j)
         dicodef[i[0][0]] = add
-    print("reference reachable for each def ( by name) ", dicodef)
+    if verbose:
+        print("\nreference reachable for each def ( by name) \n", dicodef)
     for i in ref:
-        add = []
+        add = [i[1]]
         for j in adef[i[0]-definition[0][3]]:
             for k in definition:
                 if k[0][0] == j:
                     if k[1] == i[1]:
                         add.append(j)
         dicoref[i[0]] = add
-    print("definition reaching for each ref ( by name) ", dicoref)
+    if verbose:
+        print("\ndefinition reaching for each ref ( by name) \n", dicoref)
     return dicodef, dicoref
+
+
+def nr_nd(dicodef, dicoref):
+    refnondef = []
+    for x in dicodef.keys():
+        if len(dicodef[x]) == 1:
+            refnondef.append([x, dicodef[x][0]])
+
+    defnonref = []
+    for x in dicoref.keys():
+        if len(dicoref[x]) == 1:
+            defnonref.append([x, dicoref[x][0]])
+    return refnondef, defnonref
 
     # algo
 if __name__ == "__main__":
@@ -210,14 +227,42 @@ if __name__ == "__main__":
     aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
     print_defref_set(definition, ref, aref, adef)
 
-    # part 2
-    # print("\npart 2")
-    # cfg = cfgreader.read_cfg("../tp4/part_2/file1.php.cfg.json")
-    # flow = flow_class()
-    # adef, bdef = flow.pos_reaching_def(cfg)
-    # aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
-    # print_defref_set(definition, ref, aref, adef)
-    print("--------")
-    print(ref)
-    print("--------")
-    print(definition)
+    # part 2.1
+    print("\npart 2.1")
+    print("\nfile1:")
+    cfg = cfgreader.read_cfg("../tp4/part_2/file1.php.cfg.json")
+    flow = flow_class()
+    adef, bdef = flow.pos_reaching_def(cfg)
+    aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
+    dicodef, dicoref = print_defref_set(
+        definition, ref, aref, adef, verbose=False)
+
+    refnondef, defnonref = nr_nd(dicodef, dicoref)
+    print("\nref non def ", refnondef)
+    # On detecte file name car on considere pas comme une defintion le parametre de la fonction
+    print("\ndef non ref ", defnonref)
+
+    print("\nfile2:")
+    cfg = cfgreader.read_cfg("../tp4/part_2/file2.php.cfg.json")
+    flow = flow_class()
+    adef, bdef = flow.pos_reaching_def(cfg)
+    aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
+    dicodef, dicoref = print_defref_set(
+        definition, ref, aref, adef, verbose=False)
+    refnondef, defnonref = nr_nd(dicodef, dicoref)
+    print("\nref non def ", refnondef)
+    print("\ndef non ref ", defnonref)
+
+    print("\nfile3:")
+    cfg = cfgreader.read_cfg("../tp4/part_2/file3.php.cfg.json")
+    flow = flow_class()
+    adef, bdef = flow.pos_reaching_def(cfg)
+    aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
+    dicodef, dicoref = print_defref_set(
+        definition, ref, aref, adef, verbose=False)
+    refnondef, defnonref = nr_nd(dicodef, dicoref)
+    print("\nref non def ", refnondef)
+    print("\ndef non ref ", defnonref)
+
+    # part 2.2
+    print("\npart 2.2")
