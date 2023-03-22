@@ -92,6 +92,13 @@ class flow_class:
                     parentindex = parent-self.root
                     self.IN[nodeindex] = self.IN[nodeindex].union(
                         self.OUT[parentindex])
+
+                if self.cfg.get_type(node) == "CallEnd":
+                    prev = self.cfg.get_call_begin(node)
+                    previndex = prev-self.root
+                    self.IN[nodeindex] = self.IN[nodeindex].union(
+                        self.OUT[previndex])
+
                 oldout[nodeindex] = self.OUT[nodeindex]
                 self.OUT[nodeindex] = GEN[nodeindex].union(
                     self.IN[nodeindex] - KILL[nodeindex])
@@ -145,6 +152,12 @@ class flow_class:
                     childindex = child-self.root
                     self.OUT[nodeindex] = self.OUT[nodeindex].union(
                         self.IN[childindex])
+                if self.cfg.get_type(node) == "CallBegin":
+                    next = self.cfg.get_call_end(node)
+                    nextindex = next-self.root
+                    self.OUT[nodeindex] = self.OUT[nodeindex].union(
+                        self.IN[nextindex])
+
                 oldin[nodeindex] = self.IN[nodeindex]
                 self.IN[nodeindex] = GEN[nodeindex].union(
                     self.OUT[nodeindex] - KILL[nodeindex])
@@ -178,7 +191,6 @@ def print_defref_set(definition, ref, aref, adef):
     print("definition reaching for each ref ( by name) ", dicoref)
     return dicodef, dicoref
 
-
     # algo
 if __name__ == "__main__":
     cfgreader = CFGReader()
@@ -199,11 +211,13 @@ if __name__ == "__main__":
     print_defref_set(definition, ref, aref, adef)
 
     # part 2
-    print("\npart 2")
-    cfg = cfgreader.read_cfg("../tp4/part_2/file1.php.cfg.json")
-    flow = flow_class()
-    adef, bdef = flow.pos_reaching_def(cfg)
-    aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
-    print_defref_set(definition, ref, aref, adef)
+    # print("\npart 2")
+    # cfg = cfgreader.read_cfg("../tp4/part_2/file1.php.cfg.json")
+    # flow = flow_class()
+    # adef, bdef = flow.pos_reaching_def(cfg)
+    # aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
+    # print_defref_set(definition, ref, aref, adef)
+    print("--------")
     print(ref)
+    print("--------")
     print(definition)
