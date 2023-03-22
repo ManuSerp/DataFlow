@@ -229,57 +229,57 @@ if __name__ == "__main__":
     cfgreader = CFGReader()
     astreader = ASTReader()
 
-    # cfg = cfgreader.read_cfg("../tp4/part_1/test.php.cfg.json")
-    # flow = flow_class()
-    # adef, bdef = flow.pos_reaching_def(cfg)
+    cfg = cfgreader.read_cfg("../tp4/part_1/test.php.cfg.json")
+    flow = flow_class()
+    adef, bdef = flow.pos_reaching_def(cfg)
 
-    # aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
-    # print("\ntest:")
-    # print_defref_set(definition, ref, aref, adef)
+    aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
+    print("\ntest:")
+    print_defref_set(definition, ref, aref, adef)
 
-    # print("\nwordcount:")
-    # cfg = cfgreader.read_cfg("../tp4/part_1/wordcount.php.cfg.json")
-    # flow = flow_class()
-    # adef, bdef = flow.pos_reaching_def(cfg)
-    # aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
-    # print_defref_set(definition, ref, aref, adef)
+    print("\nwordcount:")
+    cfg = cfgreader.read_cfg("../tp4/part_1/wordcount.php.cfg.json")
+    flow = flow_class()
+    adef, bdef = flow.pos_reaching_def(cfg)
+    aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
+    print_defref_set(definition, ref, aref, adef)
 
-    # # part 2.1
-    # print("\npart 2.1")
-    # print("\nfile1:")
-    # cfg = cfgreader.read_cfg("../tp4/part_2/file1.php.cfg.json")
-    # flow = flow_class()
-    # adef, bdef = flow.pos_reaching_def(cfg)
-    # aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
-    # dicodef, dicoref = print_defref_set(
-    #     definition, ref, aref, adef, verbose=False)
+    # part 2.1
+    print("\npart 2.1")
+    print("\nfile1:")
+    cfg = cfgreader.read_cfg("../tp4/part_2/file1.php.cfg.json")
+    flow = flow_class()
+    adef, bdef = flow.pos_reaching_def(cfg)
+    aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
+    dicodef, dicoref = print_defref_set(
+        definition, ref, aref, adef, verbose=False)
 
-    # refnondef, defnonref = nr_nd(dicodef, dicoref)
-    # print("\nref non def ", refnondef)
-    # # On detecte file name car on considere pas comme une defintion le parametre de la fonction
-    # print("\ndef non ref ", defnonref)
+    refnondef, defnonref = nr_nd(dicodef, dicoref)
+    print("\nref non def ", refnondef)
+    # On detecte file name car on considere pas comme une defintion le parametre de la fonction
+    print("\ndef non ref ", defnonref)
 
-    # print("\nfile2:")
-    # cfg = cfgreader.read_cfg("../tp4/part_2/file2.php.cfg.json")
-    # flow = flow_class()
-    # adef, bdef = flow.pos_reaching_def(cfg)
-    # aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
-    # dicodef, dicoref = print_defref_set(
-    #     definition, ref, aref, adef, verbose=False)
-    # refnondef, defnonref = nr_nd(dicodef, dicoref)
-    # print("\nref non def ", refnondef)
-    # print("\ndef non ref ", defnonref)
+    print("\nfile2:")
+    cfg = cfgreader.read_cfg("../tp4/part_2/file2.php.cfg.json")
+    flow = flow_class()
+    adef, bdef = flow.pos_reaching_def(cfg)
+    aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
+    dicodef, dicoref = print_defref_set(
+        definition, ref, aref, adef, verbose=False)
+    refnondef, defnonref = nr_nd(dicodef, dicoref)
+    print("\nref non def ", refnondef)
+    print("\ndef non ref ", defnonref)
 
-    # print("\nfile3:")
-    # cfg = cfgreader.read_cfg("../tp4/part_2/file3.php.cfg.json")
-    # flow = flow_class()
-    # adef, bdef = flow.pos_reaching_def(cfg)
-    # aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
-    # dicodef, dicoref = print_defref_set(
-    #     definition, ref, aref, adef, verbose=False)
-    # refnondef, defnonref = nr_nd(dicodef, dicoref)
-    # print("\nref non def ", refnondef)
-    # print("\ndef non ref ", defnonref)
+    print("\nfile3:")
+    cfg = cfgreader.read_cfg("../tp4/part_2/file3.php.cfg.json")
+    flow = flow_class()
+    adef, bdef = flow.pos_reaching_def(cfg)
+    aref, bref, ref, definition = flow.pos_reachable_ref(cfg)
+    dicodef, dicoref = print_defref_set(
+        definition, ref, aref, adef, verbose=False)
+    refnondef, defnonref = nr_nd(dicodef, dicoref)
+    print("\nref non def ", refnondef)
+    print("\ndef non ref ", defnonref)
 
     # part 2.2
     print("\npart 3")
